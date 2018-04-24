@@ -1,10 +1,15 @@
 package com.example.polarlet.alarm;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -52,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //calender.set(Calendar.HOUR_OF_DAY, alarm_timepicker.getHour());
-                //calendar.set(Calendar.MINUTE, alarm_timepicker.getMinute());
+
+                calendar.set(Calendar.HOUR_OF_DAY, alarm_timepicker.getHour());
+                calendar.set(Calendar.MINUTE, alarm_timepicker.getMinute());
 
                 // method that changes the update alarm textbox
                 set_alarm_text("Alarm on!");
@@ -71,15 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
                 // method that changes the update alarm textbox
                 set_alarm_text("Alarm off!");
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }
