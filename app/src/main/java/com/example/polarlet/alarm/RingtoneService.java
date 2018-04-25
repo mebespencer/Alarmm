@@ -25,6 +25,20 @@ public class RingtoneService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("LocalService", "Received start id " + startId + ": " +intent);
 
+        String state = intent.getExtras().getString("extra");
+
+        switch (state) {
+            case "alarm on":
+                startId = 1;
+                break;
+            case "alarm off":
+                startId = 0;
+                break;
+            default:
+                startId = 0;
+                break;
+        }
+
         /*
         final TextToSpeech ttsobj =new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -36,9 +50,14 @@ public class RingtoneService extends Service {
         ttsobj.speak("neighbor", TextToSpeech.QUEUE_FLUSH, null);
         Log.e("LocalService", "neighbor hath been said");
         */
-
-        vroom = MediaPlayer.create(this, R.raw.paganizonda);
+        vroom = MediaPlayer.create(this, R.raw.hotneighbor);
         vroom.start();
+
+
+
+
+
+
         return  START_NOT_STICKY;
     }
 
