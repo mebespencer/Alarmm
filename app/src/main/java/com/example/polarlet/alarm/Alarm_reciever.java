@@ -11,6 +11,8 @@ public class Alarm_reciever extends BroadcastReceiver {
 
         Log.e("We are in the reciever", "ok");
 
+        Intent service_intent = new Intent(context, RingtoneService.class);
 
+        context.startService(service_intent);
     }
 }

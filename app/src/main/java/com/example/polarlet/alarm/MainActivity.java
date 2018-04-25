@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 // set the alarm manager
                 alarm_manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                         pending_intent);
+
+                Log.e("fuckin", "intents created and allegedly pending");
             }
         });
 
