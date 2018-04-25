@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     TextView update_alarm;
     Context context;
     PendingIntent pending_intent;
+    EditText editText;
+    public static String whatToSay;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.context = this;
+
+        //initialize message box
+        editText = findViewById(R.id.textToSay);
 
         // initialize manager
         alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -64,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                whatToSay = editText.getText().toString();
 
                 calendar.set(Calendar.HOUR_OF_DAY, alarm_timepicker.getHour());
                 calendar.set(Calendar.MINUTE, alarm_timepicker.getMinute());
@@ -156,4 +164,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

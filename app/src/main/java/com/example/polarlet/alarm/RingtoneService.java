@@ -7,15 +7,19 @@ import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.security.Provider;
 import java.util.Locale;
 
+import static java.util.Locale.UK;
+
 public class RingtoneService extends Service {
 
+    TextToSpeech tts;
     MediaPlayer vroom;
-
+    String toSay;
     boolean isRunning = false;
 
     @Nullable
@@ -45,31 +49,37 @@ public class RingtoneService extends Service {
         }
 
         if(!isRunning && startId == 1) {
+            toSay = MainActivity.whatToSay;
+
+            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    Log.e("intialization", "tts object");
+                    tts.setLanguage(UK);
+                    Log.e("attempting to speak", toSay);
+                    for (int i = 0; i < 100; i++) {
+                        tts.speak(toSay, TextToSpeech.QUEUE_ADD, null, "wake up call");
+                    }
+                    Log.e("spoke message", toSay);
+                }
+            });
+            /*
             vroom = MediaPlayer.create(this, R.raw.paganizonda);
             vroom.start();
-            vroom.setLooping(true);
+            vroom.setLooping(true); */
             isRunning = true;
+
         } else if(isRunning && startId == 0) {
+            tts.stop();
+            /*
             Log.e("stop pressed","attempting to stop alarm");
             vroom.setLooping(false);
             vroom.stop();
-            vroom.reset();
+            vroom.reset(); */
             isRunning = false;
+
         }
 
-
-
-        /*
-        final TextToSpeech ttsobj =new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-            }
-        });
-
-        ttsobj.setLanguage(Locale.UK);
-        ttsobj.speak("wake up wake up wake up", TextToSpeech.QUEUE_FLUSH, null);
-        Log.e("LocalService", "the message been said");
-        */
         return  START_NOT_STICKY;
     }
 
