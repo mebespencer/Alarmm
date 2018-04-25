@@ -13,7 +13,9 @@ import java.security.Provider;
 import java.util.Locale;
 
 public class RingtoneService extends Service {
+
     MediaPlayer vroom;
+    boolean isRunning = false;
 
     @Nullable
     @Override
@@ -27,17 +29,31 @@ public class RingtoneService extends Service {
 
         String state = intent.getExtras().getString("extra");
 
+        Log.e("Extra is", state);
+
         switch (state) {
-            case "alarm on":
+            case "on":
                 startId = 1;
                 break;
-            case "alarm off":
+            case "off":
                 startId = 0;
                 break;
             default:
                 startId = 0;
                 break;
         }
+
+        if(!isRunning && startId == 1) {
+            vroom = MediaPlayer.create(this, R.raw.paganizonda);
+            vroom.start();
+            isRunning = true;
+        } else if(isRunning && startId == 0) {
+            vroom.stop();
+            vroom.reset();
+            isRunning = false;
+        }
+
+
 
         /*
         final TextToSpeech ttsobj =new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -47,17 +63,9 @@ public class RingtoneService extends Service {
         });
 
         ttsobj.setLanguage(Locale.UK);
-        ttsobj.speak("neighbor", TextToSpeech.QUEUE_FLUSH, null);
-        Log.e("LocalService", "neighbor hath been said");
+        ttsobj.speak("wake up wake up wake up", TextToSpeech.QUEUE_FLUSH, null);
+        Log.e("LocalService", "the message been said");
         */
-        vroom = MediaPlayer.create(this, R.raw.hotneighbor);
-        vroom.start();
-
-
-
-
-
-
         return  START_NOT_STICKY;
     }
 
