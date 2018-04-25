@@ -15,6 +15,7 @@ import java.util.Locale;
 public class RingtoneService extends Service {
 
     MediaPlayer vroom;
+
     boolean isRunning = false;
 
     @Nullable
@@ -46,8 +47,11 @@ public class RingtoneService extends Service {
         if(!isRunning && startId == 1) {
             vroom = MediaPlayer.create(this, R.raw.paganizonda);
             vroom.start();
+            vroom.setLooping(true);
             isRunning = true;
         } else if(isRunning && startId == 0) {
+            Log.e("stop pressed","attempting to stop alarm");
+            vroom.setLooping(false);
             vroom.stop();
             vroom.reset();
             isRunning = false;
