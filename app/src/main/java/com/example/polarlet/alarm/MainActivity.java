@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 alarm_manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                         pending_intent);
 
-                Log.e("fuckin", "intents created and allegedly pending");
+                Log.e("msg", "intents created and allegedly pending");
             }
         });
 
